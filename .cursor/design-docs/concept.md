@@ -178,3 +178,5 @@ Design:
 ## 📎 Context Summary
 
 You are building a **landing page for Angular Voices of Asia**, a remote Angular conference designed to reconnect and spotlight developers across Asia. The site must strongly emphasize **community**, **regional identity**, and **email signup visibility**. The **organizing team includes Rainer Hahnekamp, Martina Kraus, and Ilyas Ikromkhujaev**, and the project includes an accompanying **podcast series** to raise awareness and energy in the lead-up to the event.
+
+As for the technology, use Angular obviously, and Tailwind for the CSS. And pnpm.
