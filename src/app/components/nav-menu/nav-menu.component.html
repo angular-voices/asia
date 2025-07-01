@@ -8,8 +8,7 @@
       <div class="flex items-center space-x-3">
         <img src="/logo.svg" alt="Angular Voices of Asia" class="h-8 md:h-10 w-auto">
         <span 
-          class="font-bold text-lg md:text-xl transition-colors duration-300"
-          [class]="isScrolled ? 'text-angular-purple' : 'text-white'"
+          class="font-bold text-lg md:text-xl transition-colors duration-300 text-angular-purple"
         >
           Angular Voices
         </span>
@@ -20,8 +19,7 @@
         @for (item of menuItems; track item.label) {
           <a 
             (click)="scrollToSection(item.href)"
-            class="flex items-center space-x-2 cursor-pointer transition-all duration-300 hover:scale-105"
-            [class]="isScrolled ? 'text-gray-700 hover:text-angular-purple' : 'text-white hover:text-angular-pink'"
+            class="flex items-center space-x-2 cursor-pointer transition-all duration-300 hover:scale-105 text-gray-700 hover:text-angular-purple"
           >
             <span class="text-sm">{{ item.icon }}</span>
             <span class="font-medium">{{ item.label }}</span>
@@ -32,8 +30,7 @@
       <!-- Mobile Menu Button -->
       <button 
         (click)="toggleMenu()"
-        class="md:hidden p-2 rounded-lg transition-colors duration-300"
-        [class]="isScrolled ? 'text-gray-700 bg-gray-100' : 'text-white bg-white/10'"
+        class="md:hidden p-2 rounded-lg transition-colors duration-300 text-gray-700 bg-gray-100"
       >
         <svg 
           class="w-6 h-6" 
@@ -70,8 +67,7 @@
         @for (item of menuItems; track item.label) {
           <a 
             (click)="scrollToSection(item.href)"
-            class="flex items-center space-x-3 p-3 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white/10"
-            [class]="isScrolled ? 'text-gray-700' : 'text-white'"
+            class="flex items-center space-x-3 p-3 rounded-lg cursor-pointer transition-all duration-300 hover:bg-gray-100 text-gray-700"
           >
             <span class="text-lg">{{ item.icon }}</span>
             <span class="font-medium">{{ item.label }}</span>
