@@ -1,7 +1,9 @@
+<app-nav-menu></app-nav-menu>
+
 <router-outlet />
 
 <!-- Hero Section -->
-<section class="min-h-screen bg-gradient-to-br from-angular-pink via-angular-purple to-angular-red flex items-center justify-center relative overflow-hidden">
+<section id="home" class="min-h-screen bg-gradient-to-br from-angular-pink via-angular-purple to-angular-red flex items-center justify-center relative overflow-hidden">
   <!-- Background Pattern -->
   <div class="absolute inset-0 opacity-10">
     <div class="absolute top-20 left-20 w-32 h-32 bg-white rounded-full"></div>
@@ -72,7 +74,7 @@
 </section>
 
 <!-- About Section -->
-<section class="py-20 bg-gray-50">
+<section id="about" class="py-20 bg-gray-50">
   <div class="container mx-auto px-4">
     <div class="max-w-4xl mx-auto text-center">
       <h2 class="text-4xl font-bold text-gray-900 mb-8">About the Conference</h2>
@@ -107,7 +109,7 @@
 </section>
 
 <!-- Team Section -->
-<section class="py-20 bg-white">
+<section id="team" class="py-20 bg-white">
   <div class="container mx-auto px-4">
     <div class="max-w-4xl mx-auto text-center">
       <h2 class="text-4xl font-bold text-gray-900 mb-8">Organized by the Community</h2>
@@ -144,29 +146,8 @@
   </div>
 </section>
 
-<!-- Podcast Section -->
-<section class="py-20 bg-gradient-to-r from-angular-purple to-angular-pink">
-  <div class="container mx-auto px-4">
-    <div class="max-w-4xl mx-auto text-center text-white">
-      <h2 class="text-4xl font-bold mb-8">Listen as We Build It</h2>
-      <p class="text-xl mb-8">
-        As we prepare the conference, we're launching a podcast series to introduce speakers, talk about the Angular ecosystem in Asia, and share behind-the-scenes updates.
-      </p>
-      
-      <div class="bg-white/10 backdrop-blur-sm rounded-lg p-8 border border-white/20">
-        <div class="text-6xl mb-4">🎙️</div>
-        <h3 class="text-2xl font-semibold mb-4">Latest Episode</h3>
-        <p class="text-lg mb-6">Coming soon - Stay tuned for our first episode!</p>
-        <button class="bg-white text-angular-purple font-semibold py-3 px-6 rounded-lg hover:bg-gray-100 transition-colors">
-          Subscribe to Podcast
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- What to Expect Section -->
-<section class="py-20 bg-gray-50">
+<section id="expect" class="py-20 bg-gray-50">
   <div class="container mx-auto px-4">
     <div class="max-w-4xl mx-auto">
       <h2 class="text-4xl font-bold text-gray-900 text-center mb-12">What to Expect</h2>
@@ -221,41 +202,25 @@
       <h2 class="text-4xl font-bold text-gray-900 text-center mb-12">Timeline</h2>
       
       <div class="relative">
-        <!-- Timeline Line -->
-        <div class="absolute left-1/2 transform -translate-x-px h-full w-0.5 bg-gradient-to-b from-angular-pink to-angular-purple"></div>
-        
         <!-- Timeline Items -->
-        <div class="space-y-12">
+        <div class="space-y-16">
           <div class="relative flex items-center">
-            <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-angular-pink rounded-full"></div>
             <div class="w-5/12 pr-8 text-right">
-              <h3 class="text-xl font-semibold text-gray-900">Speaker Call Opens</h3>
-              <p class="text-gray-600">September 2025</p>
+              <h3 class="text-xl font-semibold text-gray-900">Podcast Series Begins</h3>
+              <p class="text-gray-600">Coming Soon</p>
             </div>
             <div class="w-5/12 pl-8">
-              <p class="text-gray-700">We'll open applications for speakers from across Asia to share their knowledge and experiences.</p>
+              <p class="text-gray-700">We'll launch our podcast series to introduce speakers, discuss the Angular ecosystem in Asia, and share behind-the-scenes updates.</p>
             </div>
           </div>
           
           <div class="relative flex items-center">
-            <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-angular-purple rounded-full"></div>
-            <div class="w-5/12 pr-8 text-right">
-              <h3 class="text-xl font-semibold text-gray-900">Schedule Announcement</h3>
-              <p class="text-gray-600">October 2025</p>
-            </div>
-            <div class="w-5/12 pl-8">
-              <p class="text-gray-700">The complete conference schedule will be revealed with all speakers and sessions.</p>
-            </div>
-          </div>
-          
-          <div class="relative flex items-center">
-            <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-angular-red rounded-full"></div>
             <div class="w-5/12 pr-8 text-right">
               <h3 class="text-xl font-semibold text-gray-900">Conference</h3>
               <p class="text-gray-600">Winter 2025</p>
             </div>
             <div class="w-5/12 pl-8">
-              <p class="text-gray-700">Join us for the inaugural Angular Voices of Asia conference!</p>
+              <p class="text-gray-700">Join us for the inaugural Angular Voices of Asia conference! Exact date to be announced.</p>
             </div>
           </div>
         </div>
@@ -273,7 +238,7 @@
       <div class="space-y-6">
         <div class="bg-white rounded-lg p-6 shadow-sm">
           <h3 class="text-xl font-semibold mb-2">Is the conference free?</h3>
-          <p class="text-gray-700">Yes, it's 100% free.</p>
+          <p class="text-gray-700">No, but it will have a symbolic price (very cheap). We believe in making it accessible while ensuring quality.</p>
         </div>
         
         <div class="bg-white rounded-lg p-6 shadow-sm">
@@ -304,61 +269,19 @@
 <footer class="bg-gray-900 text-white py-16">
   <div class="container mx-auto px-4">
     <div class="max-w-6xl mx-auto">
-      <div class="grid md:grid-cols-2 gap-12">
-        <!-- Left Column -->
-        <div>
-          <div class="flex items-center mb-6">
-            <div class="relative flex items-center justify-center">
-              <span class="absolute w-16 h-16 rounded-full bg-white/40"></span>
-              <img src="/logo.svg" alt="Angular Voices of Asia" class="relative w-12 h-12 mr-4 drop-shadow-lg">
-            </div>
-            <h3 class="text-2xl font-bold">Angular Voices of Asia</h3>
-          </div>
-          <p class="text-gray-400 mb-6">
-            Connecting and showcasing Angular developers across Asia.
-          </p>
-          <div class="flex space-x-4">
-            <a href="#" class="text-gray-400 hover:text-white transition-colors">
-              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-              </svg>
-            </a>
-            <a href="#" class="text-gray-400 hover:text-white transition-colors">
-              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-              </svg>
-            </a>
-            <a href="#" class="text-gray-400 hover:text-white transition-colors">
-              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-              </svg>
-            </a>
-          </div>
+      <div class="text-center">
+        <!-- Logo and Title -->
+        <div class="flex items-center justify-center mb-6">
+          <img src="/logo.svg" alt="Angular Voices of Asia" class="w-12 h-12 mr-4 drop-shadow-lg">
+          <h3 class="text-2xl font-bold">Angular Voices of Asia</h3>
         </div>
         
-        <!-- Right Column - Email Signup -->
-        <div>
-          <h3 class="text-xl font-semibold mb-4">Stay Updated</h3>
-          <form class="space-y-4">
-            <input 
-              type="email" 
-              placeholder="Enter your email" 
-              required
-              class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-angular-pink"
-            >
-            <input 
-              type="text" 
-              placeholder="Your name (optional)" 
-              class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-angular-pink"
-            >
-            <button 
-              type="submit" 
-              class="w-full bg-angular-pink text-white font-semibold py-3 px-6 rounded-lg hover:bg-angular-purple transition-colors"
-            >
-              Notify Me
-            </button>
-          </form>
-        </div>
+        <!-- Subtitle -->
+        <p class="text-gray-400 mb-6">
+          Uniting the Angular community across Asia.
+        </p>
+        
+
       </div>
       
       <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
