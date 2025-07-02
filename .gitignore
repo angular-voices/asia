@@ -46,3 +46,10 @@ Thumbs.db
 .env.local
 .env.development
 .env.production
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

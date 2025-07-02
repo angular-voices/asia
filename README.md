@@ -54,6 +54,17 @@ ng e2e
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
+## Environment Configuration
+
+To use the Mailchimp subscription functionality, you need to set up environment variables:
+
+1. Create a `.env` file in the project root
+2. Add your Mailchimp API key:
+   ```
+   MAILCHIMP_API_KEY=your-mailchimp-api-key-here
+   ```
+3. Get your API key from: https://us10.admin.mailchimp.com/account/api/
+
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

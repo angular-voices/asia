@@ -6,11 +6,24 @@ import {
 } from '@angular/ssr/node';
 import express from 'express';
 import { join } from 'node:path';
+import { config } from 'dotenv';
+import { handleSubscribe } from './api/subscribe';
+
+// Load environment variables from .env file
+config();
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
 const angularApp = new AngularNodeAppEngine();
+
+// Middleware
+app.use(express.json());
+
+/**
+ * Mailchimp API endpoint
+ */
+app.post('/api/subscribe', handleSubscribe);
 
 /**
  * Serve static files from /browser

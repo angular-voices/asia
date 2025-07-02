@@ -32,3 +32,17 @@
 /* Font family utility */
 .font-inter { font-family: 'Inter', sans-serif; }
 
+/* Mobile safe area and body reset */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Ensure proper mobile viewport handling */
+@media screen and (max-width: 768px) {
+  body {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+}
+
