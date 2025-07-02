@@ -36,7 +36,7 @@ export function setupApiRoutes(app: any) {
 
       const resend = getResend();
       const response = await resend.emails.send({
-        from: 'Angular Voices of Asia <angularvoicesofasia@gmail.com>',
+        from: 'Angular Voices of Asia <team@angular-voices.asia>',
         to: email,
         subject: 'Welcome to Angular Voices of Asia! 🎉',
         html: `
