@@ -6,19 +6,11 @@ import {
 } from '@angular/ssr/node';
 import express from 'express';
 import { join } from 'node:path';
-import { setupApiRoutes } from './api/api-routes';
-import 'dotenv/config';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
 const angularApp = new AngularNodeAppEngine();
-
-// Middleware for parsing JSON
-app.use(express.json());
-
-// Setup API routes
-setupApiRoutes(app);
 
 /**
  * Serve static files from /browser
