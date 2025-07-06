@@ -4,16 +4,13 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": [
-      "node"
-    ]
+    "types": ["node"]
   },
-  "include": [
-    "src/**/*.ts"
-  ],
+  "include": ["src/**/*.ts"],
   "exclude": [
     "src/**/*.spec.ts",
     "src/api-routes.ts",
-    "src/api/**/*.ts"
+    "src/api/**/*.ts",
+    "src/functions/**/*.ts"
   ]
 }
