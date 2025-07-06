@@ -5,7 +5,7 @@ import { SubscriptionForm } from './components/subscription-form.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavMenuComponent, SubscriptionForm],
+  imports: [NavMenuComponent, SubscriptionForm],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
