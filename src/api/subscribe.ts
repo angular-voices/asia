@@ -1,37 +1,121 @@
-import type { Request, Response, RequestHandler } from 'express';
+import { Request, Response } from 'express';
 
-export const handleSubscribe: RequestHandler = async (
+interface SubscribeRequest {
+  email: string;
+  firstName: string;
+  lastName: string;
+  country: string;
+}
+
+interface MailchimpMember {
+  email_address: string;
+  status: 'subscribed' | 'unsubscribed' | 'cleaned' | 'pending';
+  merge_fields: {
+    FNAME?: string;
+    LNAME?: string;
+    COUNTRY?: string;
+  };
+  tags?: string[];
+}
+
+interface MailchimpResponse {
+  id: string;
+  email_address: string;
+  status: string;
+  merge_fields: {
+    FNAME: string;
+    LNAME: string;
+    COUNTRY: string;
+  };
+}
+
+function getFromEnv(property: string) {
+  const value = process.env[property];
+  if (!value) {
+    throw new Error(`Missing ${property} in environment variables`);
+  }
+  return value;
+}
+
+async function addMemberToMailchimp(
+  apiKey: string,
+  serverPrefix: string,
+  audienceId: string,
+  memberData: MailchimpMember,
+) {
+  const mailchimpUrl = `https://${serverPrefix}.api.mailchimp.com/3.0/lists/${audienceId}/members`;
+  console.log(mailchimpUrl);
+  return fetch(mailchimpUrl, {
+    method: 'POST',
+    body: JSON.stringify(memberData),
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+  });
+}
+
+function toMd5(value: string) {
+  const md5 = require('crypto').createHash('md5');
+  return md5.update(value.toLowerCase()).digest('hex');
+}
+
+async function doesMemberExist(
+  apiKey: string,
+  serverPrefix: string,
+  listId: string,
+  email: string,
+) {
+  const hashedEmail = toMd5(email);
+  const mailchimpUrl = `https://${serverPrefix}.api.mailchimp.com/3.0/lists/${listId}/members/${hashedEmail}`;
+  const response = await fetch(mailchimpUrl, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+    },
+  });
+
+  return response.ok;
+}
+
+async function updateMemberInMailchimp(
+  apiKey: string,
+  serverPrefix: string,
+  audienceId: string,
+  memberData: MailchimpMember,
+) {
+  const email = memberData.email_address;
+  const mailchimpUrl = `https://${serverPrefix}.api.mailchimp.com/3.0/lists/${audienceId}/members/${toMd5(email)}`;
+  return fetch(mailchimpUrl, {
+    method: 'PATCH',
+    body: JSON.stringify(memberData),
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+  });
+}
+
+export async function handleSubscribe(
   req: Request,
-  res: Response
-) => {
-  const { email, firstName, lastName, country } = req.body;
+  res: Response,
+): Promise<void> {
+  const {
+    email: emailRaw,
+    firstName,
+    lastName,
+    country,
+  }: SubscribeRequest = req.body;
+  const email = emailRaw.toLowerCase();
 
-  // Validate required fields
-  if (!email) {
-    res.status(400).json({
-      error: 'Email is required',
-    });
-    return;
-  }
+  // Get Mailchimp configuration from environment variables
+  const apiKey = getFromEnv('MAILCHIMP_API_KEY');
+  const serverPrefix = getFromEnv('MAILCHIMP_SERVER_PREFIX');
+  const audienceId = getFromEnv('MAILCHIMP_AUDIENCE_ID');
 
-  // Mailchimp API configuration
-  const apiKey = process.env['MAILCHIMP_API_KEY'];
-  if (!apiKey) {
-    console.error('MAILCHIMP_API_KEY environment variable is not set');
-    res.status(500).json({
-      error: 'Server configuration error',
-    });
-    return;
-  }
-
-  const serverPrefix = 'us10';
-  const audienceId = '935d1c5649';
-  const baseUrl = `https://${serverPrefix}.api.mailchimp.com/3.0`;
-
-  // Prepare member data for Mailchimp
-  const member = {
+  // Create member data for Mailchimp
+  const memberData = {
     email_address: email,
-    status: 'subscribed',
     merge_fields: {
       FNAME: firstName || '',
       LNAME: lastName || '',
@@ -39,22 +123,58 @@ export const handleSubscribe: RequestHandler = async (
     },
   };
 
-  // Make request to Mailchimp API
-  const auth = Buffer.from(`anystring:${apiKey}`).toString('base64');
-  const response = await fetch(`${baseUrl}/lists/${audienceId}/members`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Basic ${auth}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(member),
-  });
+  const memberExists = await doesMemberExist(
+    apiKey,
+    serverPrefix,
+    audienceId,
+    email,
+  );
 
-  const responseData = await response.json();
+  if (memberExists) {
+    const updateResponse = await updateMemberInMailchimp(
+      apiKey,
+      serverPrefix,
+      audienceId,
+      { ...memberData, status: 'subscribed' },
+    );
 
-  if (!response.ok) {
-    throw new Error(`Mailchimp API error: ${JSON.stringify(responseData)}`);
+    if (updateResponse.ok) {
+      res
+        .status(200)
+        .json({
+          mode: 'updated',
+        })
+        .send();
+      console.log(`updated member ${email}`);
+      return;
+    } else {
+      console.log(
+        `failed to update member ${email}: ${await updateResponse.text()}`,
+      );
+      res.status(500).send();
+      return;
+    }
+  } else {
+    const response = await addMemberToMailchimp(
+      apiKey,
+      serverPrefix,
+      audienceId,
+      { ...memberData, status: 'pending' },
+    );
+
+    if (response.ok) {
+      res
+        .status(200)
+        .json({
+          mode: 'added',
+        })
+        .send();
+      console.log(`added member ${email}`);
+      return;
+    } else {
+      console.log(`failed to add member ${email}: ${await response.text()}`);
+      res.status(500).send();
+      return;
+    }
   }
-
-  res.json({ success: true });
-};
+}

@@ -205,20 +205,32 @@ export class SubscriptionForm {
       country: formValue.country || '',
     };
 
-    this.#http.post('/api/subscribe', request).subscribe({
-      next: () => {
-        this.message.set(
-          'Thank you for subscribing! Please check your email to confirm.',
-        );
-        this.messageType.set('success');
-      },
-      error: (error: unknown) => {
-        this.message.set('There was an error. Please try again.');
-        this.messageType.set('error');
-      },
-      complete: () => {
-        this.isSubmitting.set(false);
-      },
-    });
+    this.#http
+      .post<{
+        success: boolean;
+        message: string;
+        isUpdate: boolean;
+      }>('/api/subscribe', request)
+      .subscribe({
+        next: (response) => {
+          if (response.isUpdate) {
+            this.message.set(
+              'Your subscription has been updated successfully!',
+            );
+          } else {
+            this.message.set(
+              'Thank you for subscribing! Please check your email to confirm.',
+            );
+          }
+          this.messageType.set('success');
+        },
+        error: (error: unknown) => {
+          this.message.set('There was an error. Please try again.');
+          this.messageType.set('error');
+        },
+        complete: () => {
+          this.isSubmitting.set(false);
+        },
+      });
   }
 }
