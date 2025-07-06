@@ -173,9 +173,7 @@ export async function handleSubscribe(
       console.log(`added member ${email}`);
       return;
     } else {
-      console.log(
-        `failed to add member ${email}: for ${audienceId} ${await response.text()}`,
-      );
+      console.log(`failed to add member ${email}: ${await response.text()}`);
       res.status(500).send();
       return;
     }
