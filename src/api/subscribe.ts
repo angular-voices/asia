@@ -86,6 +86,7 @@ async function updateMemberInMailchimp(
 ) {
   const email = memberData.email_address;
   const mailchimpUrl = `https://${serverPrefix}.api.mailchimp.com/3.0/lists/${audienceId}/members/${toMd5(email)}`;
+  console.log(mailchimpUrl);
   return fetch(mailchimpUrl, {
     method: 'PATCH',
     body: JSON.stringify(memberData),
@@ -172,7 +173,9 @@ export async function handleSubscribe(
       console.log(`added member ${email}`);
       return;
     } else {
-      console.log(`failed to add member ${email}: ${await response.text()}`);
+      console.log(
+        `failed to add member ${email}: for ${audienceId} ${await response.text()}`,
+      );
       res.status(500).send();
       return;
     }
