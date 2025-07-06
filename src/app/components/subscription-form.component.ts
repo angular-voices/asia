@@ -210,7 +210,10 @@ export class SubscriptionForm {
         success: boolean;
         message: string;
         isUpdate: boolean;
-      }>('/api/subscribe', request)
+      }>(
+        'https://angular-voices-asia-functions.angularvoicesofasia.workers.dev/',
+        request,
+      )
       .subscribe({
         next: (response) => {
           if (response.isUpdate) {
